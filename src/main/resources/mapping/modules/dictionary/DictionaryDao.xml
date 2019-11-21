@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhg.javakc.modules.dictionary.dao.DictionaryDao">
+	
+	<resultMap id="dictionary" type="dictionary">  
+        <id property="dataId" column="DATA_ID" />
+        <result property="dataName" column="DATA_NAME" />
+        <result property="dataType" column="DATA_TYPE" />
+        <result property="dataCode" column="DATA_CODE" />
+        <result property="dataVal" column="DATA_VAL" />
+        <result property="dataCommon" column="DATA_COMMON" />
+    </resultMap>
+	
+	<select id="findList" resultMap="dictionary">
+		SELECT DATA_ID, DATA_NAME, DATA_TYPE, DATA_CODE, DATA_VAL, DATA_COMMON FROM DATA_DICTIONARY
+			<where>
+				<if test="dataName != null and dataName != ''">
+					AND DATA_NAME LIKE '%'||#{dataName}||'%' 
+					OR DATA_TYPE LIKE '%'||#{dataName}||'%' 
+					OR DATA_VAL LIKE '%'||#{dataName}||'%' 
+					OR DATA_COMMON LIKE '%'||#{dataName}||'%'
+				</if>
+			</where>
+				ORDER BY DATA_TYPE DESC, DATA_CODE ASC
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO DATA_DICTIONARY(DATA_ID, DATA_NAME, DATA_TYPE, DATA_CODE, DATA_VAL, DATA_COMMON) 
+			VALUES(#{dataId}, #{dataName}, #{dataType}, #{dataCode}, #{dataVal}, #{dataCommon})
+	</insert>
+	
+	<select id="get" resultMap="dictionary">
+		SELECT DATA_ID, DATA_NAME, DATA_TYPE, DATA_CODE, DATA_VAL, DATA_COMMON FROM DATA_DICTIONARY WHERE DATA_ID = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE DATA_DICTIONARY SET DATA_NAME = #{dataName}, DATA_TYPE = #{dataType}, DATA_CODE = #{dataCode},
+			DATA_VAL = #{dataVal}, DATA_COMMON = #{dataCommon} WHERE DATA_ID = #{dataId}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.String">  
+	    <![CDATA[
+	       DELETE FROM DATA_DICTIONARY WHERE DATA_ID IN 
+	    ]]>
+	    <foreach collection="array" item="id" open="(" separator="," close=")">
+	    	#{id}
+	    </foreach>
+	</delete>
+	
+</mapper>

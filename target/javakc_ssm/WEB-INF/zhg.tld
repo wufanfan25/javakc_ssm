@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<taglib>
+	<tlibversion>1.2</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>javakc taglib</shortname>
+	<uri>www.javakc.com</uri>
+	
+	
+	<!--属性标签-->
+	<!--根据传入的真实值，在代码表中找到对应的表现值，将表现值输出在页面-->
+	<!--属性:codeTp   必需 代码表中的类型 -->
+	<!--属性:value    必需 代码表中的真实值-->
+	<tag>
+		<name>show</name>
+		<tagclass>com.zhg.javakc.base.util.tag.ShowTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute>
+			<name>value</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>codeTp</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<!--时间标签-->
+	<!--根据传入的日期和日期格式，在页面中输出相应的时间字符串-->
+	<!--属性:times   可选 填写日期(标准格式)，默认是当前时间 -->
+	<!--属性:type    可选 day|time|daytime 默认：day  -->
+	<!--    day：年月日|time:分时秒|daytime 年月日分时秒-->
+	<!--属性:format  可选 日期格式，如果设置此属性，type属性将失效  -->
+	<tag>
+		<name>date</name>
+		<tagclass>com.zhg.javakc.base.util.tag.DateTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute>
+			<name>times</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>type</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>format</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<!--下拉列表标签-->
+	<!--可以指定在代码表中取值，生成下拉列表，也可以指定json字符串，生成下拉列表-->
+	<!--属性:name     可选 select标签的name -->
+	<!--属性:id       可选 select标签的id -->
+	<!--属性:codeTp   必需 代码表中的类型，              或是json字符串 -->
+	<!--属性:value    可选 和此属性匹配的Option选项初始化时被选中 -->
+	<!--属性:onChange 可选 select标签的onChange事件 -->
+	<!--属性:style    可选 select标签的css样式 -->
+	<!--属性:cls    可选 select标签的css样式 -->
+	<!--属性:def      可选 此属性为true，代表生成一个请选择的Option选项，value是"0",不写此属性，或设置为false，则不添加 -->
+	<!--zhg:select id="pte.rwm.resTreeCd" name="pte.rwm.resTreeCd" onChange="change()" codeTp='${JsonList}' def="true"-->
+	<tag>
+		<name>select</name>
+		<tagclass>com.zhg.javakc.base.util.tag.SelectTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute>
+			<name>name</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>codeTp</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>onChange</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>cls</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>def</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<!--动态菜单标签-->
+	<!--根据当前登陆人角色ID获取动态菜单-->
+	<!--属性:role     必填项 登陆人角色ID -->
+	<!--zhg:menu role="id" -->
+	<tag>
+		<name>menu</name>
+		<tagclass>com.zhg.javakc.base.util.tag.MenuTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute>
+			<name>role</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+</taglib>
+
+
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhg.javakc.modules.system.home.dao.HomeDao">
+	
+	<select id="chart" resultType="Map" parameterType="Map">
+		select ctime, total from 
+			(select to_char(c.createdate, 'yyyy-MM-dd') as ctime, count(1) as total from crm_customer c 
+<!-- 				<where> -->
+<!-- 					<if test="type == 1"> -->
+<!-- 						c.createdate > to_date('2017-10-16', 'yyyy-MM-dd') -->
+<!-- 					</if> -->
+<!-- 					<if test="type == 2"> -->
+<!-- 						c.createdate > to_date('2017-04-16', 'yyyy-MM-dd') -->
+<!-- 					</if> -->
+<!-- 				</where> -->
+<!-- 				type time -->
+				group by to_char(c.createdate, 'yyyy-MM-dd'))
+		 			order by ctime
+	</select>
+	
+</mapper>

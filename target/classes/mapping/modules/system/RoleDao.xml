@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhg.javakc.modules.system.role.dao.RoleDao">
+	
+	<resultMap id="role" type="role">  
+        <id property="roleId" column="ROLE_ID" />
+        <result property="roleName" column="ROLE_NAME" />
+        <result property="roleRemark" column="ROLE_REMARK" />
+    </resultMap>
+    
+	<resultMap id="roleMenu" type="role">  
+        <id property="roleId" column="ROLE_ID" />
+        <result property="roleName" column="ROLE_NAME" />
+        <result property="roleRemark" column="ROLE_REMARK" />
+        <collection property="menuList" column="MENU_ID" javaType="ArrayList" ofType="String">
+        	<result column="MENU_ID" />
+        </collection>
+    </resultMap>
+    
+    <sql id="allColumn">
+    	ROLE_ID, ROLE_NAME, ROLE_REMARK
+    </sql>
+	
+	<select id="findList" resultMap="role">
+		SELECT <include refid="allColumn"></include> FROM DATA_ROLE
+		<where>
+			<if test="roleName != null and roleName != ''">
+				AND ROLE_NAME LIKE '%'||#{roleName}||'%' 
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO DATA_ROLE(<include refid="allColumn"></include>)  VALUES(#{roleId}, #{roleName}, #{roleRemark})
+	</insert>
+	
+	<insert id="insertRelation" parameterType="Map">
+		INSERT INTO DATA_ROLE_MENU(ROLE_ID, MENU_ID) VALUES(#{roleId}, #{menuId})
+	</insert>
+	
+	<select id="get" resultMap="roleMenu">
+		SELECT R.ROLE_ID, R.ROLE_NAME, R.ROLE_REMARK, RM.MENU_ID FROM DATA_ROLE R, DATA_ROLE_MENU RM 
+			WHERE R.ROLE_ID = RM.ROLE_ID(+) AND R.ROLE_ID = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE DATA_ROLE SET ROLE_NAME = #{roleName}, ROLE_REMARK = #{roleRemark} WHERE ROLE_ID = #{roleId}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.String">  
+	    <![CDATA[
+	       DELETE FROM DATA_ROLE WHERE ROLE_ID IN 
+	    ]]>
+	    <foreach collection="array" item="id" open="(" separator="," close=")">
+	    	#{id}
+	    </foreach>
+	</delete>
+	
+	<delete id="deleteRelation">
+		DELETE FROM DATA_ROLE_MENU WHERE ROLE_ID = #{id}
+	</delete>
+	
+</mapper>

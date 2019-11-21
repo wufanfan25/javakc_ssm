@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhg.javakc.modules.test.dao.TestDao">
+
+	<select id="findList" resultType="com.zhg.javakc.modules.test.entity.TestEntity" >
+       SELECT TEST_ID AS testId , TEST_NAME AS testName,TEST_SEX AS testSex,TEST_DATE AS testDate
+       FROM DATA_TEST WHERE 1 = 1
+       <if test="testName != '' and testName != null">
+           AND TEST_NAME LIKE '%'||#{testName}||'%'
+       </if>
+    </select>
+
+
+ <insert id="insert" >
+     INSERT INTO DATA_TEST(TEST_ID,TEST_NAME,TEST_SEX,TEST_DATE)
+     VALUES (#{testId},#{testName},#{testSex},#{testDate})
+ </insert>
+
+    <select id="get" resultType="com.zhg.javakc.modules.test.entity.TestEntity">
+        SELECT TEST_ID AS testId , TEST_NAME AS testName,TEST_SEX AS testSex,TEST_DATE AS testDate
+       FROM DATA_TEST WHERE TEST_ID = #{0}
+    </select>
+
+    <update id="update">
+        update DATA_TEST SET TEST_NAME = #{testName},TEST_SEX = #{testSex}, TEST_DATE = #{testDate}
+        WHERE TEST_ID = #{testId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM DATA_TEST WHERE TEST_ID IN
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

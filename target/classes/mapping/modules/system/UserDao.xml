@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhg.javakc.modules.system.user.dao.UserDao">
+	
+	<resultMap id="user" type="user">  
+        <id property="userId" column="USER_ID" />
+        <result property="userName" column="USER_NAME" />
+        <result property="loginName" column="LOGIN_NAME" />
+        <result property="loginPass" column="LOGIN_PASS" />
+        <result property="userEmail" column="USER_EMAIL" />
+        <result property="userPhone" column="USER_PHONE" />
+        <result property="userSex" column="USER_SEX" />
+    </resultMap>
+    
+	<resultMap id="userRole" type="user">  
+        <id property="userId" column="USER_ID" />
+        <result property="userName" column="USER_NAME" />
+        <result property="loginName" column="LOGIN_NAME" />
+        <result property="loginPass" column="LOGIN_PASS" />
+        <result property="userEmail" column="USER_EMAIL" />
+        <result property="userPhone" column="USER_PHONE" />
+        <result property="userSex" column="USER_SEX" />
+        <collection property="roleList" column="ROLE_ID" javaType="ArrayList" ofType="String">
+        	<result column="ROLE_ID" />
+        </collection>
+    </resultMap>
+    
+    <sql id="allColumn">
+    	U.USER_ID, U.USER_NAME, U.LOGIN_NAME, U.LOGIN_PASS, U.USER_EMAIL, U.USER_PHONE, U.USER_SEX
+    </sql>
+    
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" > 
+        <property name="timeToIdleSeconds" value="3600"/><!--1 hour-->
+        <property name="timeToLiveSeconds" value="3600"/><!--1 hour-->
+        <property name="maxEntriesLocalHeap" value="1000"/>
+        <property name="maxEntriesLocalDisk" value="10000000"/>
+        <property name="memoryStoreEvictionPolicy" value="LRU"/>
+    </cache>
+	
+	<select id="findList" resultMap="userRole" useCache="true">
+		SELECT <include refid="allColumn"></include>, R.ROLE_NAME AS ROLE_ID FROM DATA_USER U, DATA_USER_ROLE UR, DATA_ROLE R
+		<where>
+			U.USER_ID = UR.USER_ID AND UR.ROLE_ID = R.ROLE_ID
+			<if test="userName != null and userName != ''">
+				AND U.USER_NAME LIKE '%'||#{userName}||'%'
+				OR U.LOGIN_NAME LIKE '%'||#{userName}||'%'
+				OR U.USER_EMAIL LIKE '%'||#{userName}||'%'
+				OR U.USER_PHONE LIKE '%'||#{userName}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="findByName" resultMap="userRole">
+		SELECT <include refid="allColumn"></include>, UR.ROLE_ID FROM DATA_USER U,  DATA_USER_ROLE UR
+ 			WHERE U.USER_ID = UR.USER_ID AND U.LOGIN_NAME = #{name}
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO DATA_USER (USER_ID, USER_NAME, LOGIN_NAME, LOGIN_PASS, USER_EMAIL, USER_PHONE, USER_SEX) 
+			VALUES(#{userId}, #{userName}, #{loginName}, #{loginPass}, #{userEmail}, #{userPhone}, #{userSex})
+	</insert>
+	
+	<insert id="insertRelation" parameterType="Map">
+		INSERT INTO DATA_USER_ROLE(USER_ID, ROLE_ID) VALUES(#{userId}, #{roleId})
+<!-- 		 INSERT INTO DATA_USER_ROLE(USER_ID, ROLE_ID)  -->
+<!-- 		 SELECT #{userId}, RID FROM -->
+<!-- 	    <foreach collection="roleIds" item="id" open="(" separator="UNION ALL" close=")"> -->
+<!-- 	    	<![CDATA[ -->
+<!-- 		    	SELECT ROLE_ID AS RID FROM DATA_ROLE WHERE ROLE_ID = #{id} -->
+<!-- 		    ]]> -->
+<!-- 	    </foreach> -->
+	</insert>
+	
+	<select id="get" resultMap="userRole">
+		SELECT <include refid="allColumn"></include>, UR.ROLE_ID FROM DATA_USER U,  DATA_USER_ROLE UR
+ 			WHERE U.USER_ID = UR.USER_ID AND U.USER_ID = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE DATA_USER SET USER_NAME = #{userName}, LOGIN_NAME = #{loginName}, LOGIN_PASS = #{loginPass},
+			USER_EMAIL = #{userEmail}, USER_PHONE = #{userPhone}, USER_SEX = ${userSex} WHERE USER_ID = #{userId}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.String">  
+	    <![CDATA[
+	       DELETE FROM DATA_USER WHERE USER_ID IN 
+	    ]]>
+	    <foreach collection="array" item="id" open="(" separator="," close=")">
+	    	#{id}
+	    </foreach>
+	</delete>
+	
+	<delete id="deleteRelation">
+		DELETE FROM DATA_USER_ROLE WHERE USER_ID = #{id}
+	</delete>
+	
+	<select id="login" resultType="String">
+		select u.login_pass as pass from data_user u where u.login_name = #{name}
+	</select>
+
+
+	<select id="queryUser" resultType="com.zhg.javakc.modules.system.user.entity.UserEntity">
+		SELECT USER_ID AS userId, USER_NAME AS userName FROM DATA_USER WHERE 1=1
+	</select>
+	
+</mapper>

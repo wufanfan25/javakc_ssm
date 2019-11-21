@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhg.javakc.modules.system.menu.dao.MenuDao">
+	
+	<resultMap id="menu" type="menu">  
+        <id property="menuId" column="MENU_ID" />
+        <result property="menuName" column="MENU_NAME" />
+        <result property="menuLevel" column="MENU_LEVEL" />
+        <result property="menuPid" column="MENU_PID" />
+        <result property="menuUri" column="MENU_URI" />
+        <result property="menuPermission" column="MENU_PERMISSION" />
+        <result property="menuWeight" column="MENU_WEIGHT" />
+        <result property="menuState" column="MENU_STATE" />
+    </resultMap>
+    
+    <sql id="allColumn">
+    	M.MENU_ID, M.MENU_NAME, M.MENU_PID, M.MENU_LEVEL, M.MENU_URI, M.MENU_PERMISSION, M.MENU_WEIGHT, M.MENU_STATE
+    </sql>
+	
+	<select id="findList" resultMap="menu">
+		SELECT <include refid="allColumn"></include> FROM DATA_MENU M ORDER BY M.MENU_WEIGHT
+	</select>
+	
+	<select id="findAll" resultType="Map">
+		SELECT RM.ROLE_ID, M.MENU_NAME, M.MENU_PID, M.MENU_LEVEL, M.MENU_URI 
+       		FROM DATA_MENU M, DATA_ROLE_MENU RM
+            	WHERE M.MENU_ID = RM.MENU_ID AND (M.MENU_LEVEL = 1 OR M.MENU_LEVEL = 2)
+                  	ORDER BY  RM.ROLE_ID, M.MENU_WEIGHT
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO DATA_MENU (MENU_ID, MENU_NAME, MENU_PID, MENU_LEVEL, MENU_URI, MENU_PERMISSION, MENU_WEIGHT, MENU_STATE)  
+			VALUES(#{menuId}, #{menuName}, #{menuPid}, #{menuLevel}, #{menuUri}, #{menuPermission}, #{menuWeight}, #{menuState})
+	</insert>
+	
+	<select id="get" resultMap="menu">
+		SELECT <include refid="allColumn"></include> FROM DATA_MENU M WHERE M.MENU_ID = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE DATA_MENU M SET M.MENU_NAME = #{menuName}, M.MENU_PID = #{menuPid}, M.MENU_LEVEL = #{menuLevel}, 
+			M.MENU_URI = #{menuUri}, M.MENU_PERMISSION = #{menuPermission}, M.MENU_WEIGHT = #{menuWeight}, M.MENU_STATE = #{menuState}
+				WHERE M.MENU_ID = #{menuId}
+	</update>
+	
+	<delete id="deleteRelation">
+		DELETE FROM DATA_ROLE_MENU WHERE MENU_ID IN
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+	    	#{id}
+	    </foreach>
+	</delete>
+	
+	<delete id="delete" parameterType="java.lang.String">  
+	    <![CDATA[
+	       DELETE FROM DATA_MENU WHERE MENU_ID IN 
+	    ]]>
+	    <foreach collection="array" item="id" open="(" separator="," close=")">
+	    	#{id}
+	    </foreach>
+	</delete>
+	
+</mapper>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd  
+                        http://www.springframework.org/schema/context  
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd  
+                        http://www.springframework.org/schema/cache  
+    					http://www.springframework.org/schema/cache/spring-cache.xsd">
+    
+    <description>apache shiro配置</description>
+  	
+  	<!-- 该ID对应web.xml中shiroFilter -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean"> 
+    	<!-- 认证管理器 --> 
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 用户未登录时需要登陆的页面 -->
+        <property name="loginUrl" value="/login.jsp"/>
+        <!-- 用户登录成功要跳转的页面 -->
+        <property name="successUrl" value="/index.jsp"/>
+        <!-- 用户无权访问的路径，拦截后需要访问的页面 -->
+        <property name="unauthorizedUrl" value="/common/view/error/403.jsp"/>
+        <property name="filterChainDefinitions">
+            <value>
+<!-- anon:例子/admins/**=anon 没有参数，表示可以匿名使用。 -->
+<!-- authc:例如/admins/user/**=authc表示需要认证(登录)才能使用，没有参数 -->
+<!-- roles：例子/admins/user/**=roles[admin],参数可以写多个，多个时必须加上引号，并且参数之间用逗号分割，当有多个参数时，例如admins/user/**=roles["admin,guest"],每个参数通过才算通过，相当于hasAllRoles()方法。 -->
+<!-- perms：例子/admins/user/**=perms[user:add:*],参数可以写多个，多个时必须加上引号，并且参数之间用逗号分割，例如/admins/user/**=perms["user:add:*,user:modify:*"]，当有多个参数时必须每个参数都通过才通过，想当于isPermitedAll()方法。 -->
+<!-- rest：例子/admins/user/**=rest[user],根据请求的方法，相当于/admins/user/**=perms[user:method] ,其中method为post，get，delete等。 -->
+<!-- port：例子/admins/user/**=port[8081],当请求的url的端口不是8081是跳转到schemal://serverName:8081?queryString,其中schmal是协议http或https等，serverName是你访问的host,8081是url配置里port的端口，queryString是你访问的url里的？后面的参数。 -->
+<!-- authcBasic：例如/admins/user/**=authcBasic没有参数表示httpBasic认证 -->
+<!-- ssl:例子/admins/user/**=ssl没有参数，表示安全的url请求，协议为https -->
+<!-- user:例如/admins/user/**=user没有参数表示必须存在用户，当登入操作时不做检查 -->
+<!-- logout:清空会话信息 -->
+                /static/** = anon
+                /common/** = anon
+                /login* = anon
+                /logout = logout
+                /** = authc
+            </value>
+        </property>
+    </bean>
+    
+	<!-- 安全管理器 -->  
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">  
+        <property name="realms">  
+            <list>  
+                <ref bean="jdbcRealm"/>
+            </list>  
+        </property>  
+        <!-- cacheManager,集合spring缓存工厂 -->
+        <property name="cacheManager" ref="shiroEhcacheManager" />
+<!--         <property name="sessionManager" ref="sessionManager" /> -->
+    </bean>
+    
+    <!-- 控制权限Shiro实现 -->
+    <bean id="securityRealm" class="com.zhg.javakc.modules.system.shiro.realm.SecurityRealm"></bean>
+  	
+  	<!-- shiro提供的JDBCrealm -->
+    <bean id="jdbcRealm" class="org.apache.shiro.realm.jdbc.JdbcRealm">
+	    <property name="dataSource" ref="dataSource" />
+	    <!-- 登录认证用户的查询SQL，需要用登录用户名作为条件，查询密码字段 -->
+	    <property name="authenticationQuery" value=" select u.login_pass as pass from data_user u where u.login_name = ? " />
+	    <!-- 用户角色查询SQL，需要通过登录用户名去查询。查询角色字段 -->
+	    <property name="userRolesQuery" value=" select r.role_name from data_user u, data_user_role ur ,data_role r where u.user_id = ur.user_id and ur.role_id = r.role_id and u.login_name = ? " />  
+	    <!-- 用户的权限资源查询SQL，需要用单一角色查询角色下的权限资源，如果存在多个角色，则是遍历每个角色，分别查询出权限资源并添加到集合中。-->  
+	    <property name="permissionsQuery" value=" select m.menu_permission from data_role r, data_role_menu rm, data_menu m where r.role_id = rm.role_id and rm.menu_id = m.menu_id and r.role_name = ? " />
+	    <!-- permissionsLookupEnabled默认false。False时不会使用permissionsQuery的SQL去查询权限资源。设置为true才会去执行。 -->
+	    <property name="permissionsLookupEnabled" value="true" />
+	   	<!-- saltStyle密码是否加盐，默认是NO_SALT不加盐。加盐有三种选择CRYPT,COLUMN,EXTERNAL。 -->
+	    <property name="saltStyle" value="NO_SALT" />
+	    <!-- credentialsMatcher密码匹配规则。   -->
+	    <property name="credentialsMatcher" ref="credentialsMatcher" />
+	</bean>
+	
+	<bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.PasswordMatcher">
+    	<property name="passwordService" ref="passwordService"></property>
+    </bean>
+	
+	<bean id="passwordService" class="org.apache.shiro.authc.credential.DefaultPasswordService">
+    	<property name="hashService" ref="hashService"></property>
+    </bean>
+    
+	<bean id="hashService" class="org.apache.shiro.crypto.hash.DefaultHashService">
+    	<property name="hashAlgorithmName" value="MD5"></property>
+    	<property name="hashIterations" value="3"></property>
+    	<property name="generatePublicSalt" value="true"></property>
+    </bean>
+    
+<!-- 	<bean id="hashedCredentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher"> -->
+<!--         <property name="hashAlgorithmName" value="MD5" /> -->
+<!--         <property name="hashIterations" value="2" /> -->
+<!--         <property name="storedCredentialsHexEncoded" value="true" /> -->
+<!--     </bean> -->
+	
+	<!-- 缓存管理器 使用Ehcache实现 -->
+    <bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">  
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>  
+    </bean>
+    
+    <!-- Shiro生命周期处理器 -->  
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/> 
+  	
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+    	<property name="proxyTargetClass" value="true"></property>  
+    </bean>
+    
+    <!--securityManager是进行各类型的验证  -->
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">  
+        <property name="securityManager" ref="securityManager"/>  
+    </bean>
+
+</beans>

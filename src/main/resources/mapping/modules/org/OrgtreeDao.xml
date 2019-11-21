@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhg.javakc.modules.org.tree.dao.OrgtreeDao">
+	
+	<resultMap type="orgtree" id="orgtreeMap">
+		<id property="id" column="org_tree_id"/>
+		<result property="name" column="org_tree_name"/>
+		<result property="pid" column="org_tree_pid"/>
+		<result property="level" column="org_tree_level"/>
+	</resultMap>
+	
+	<select id="findList" resultMap="orgtreeMap">
+		select org_tree_id, org_tree_name, org_tree_pid, org_tree_level from ahsydw_org_tree
+	</select>   
+	
+	<insert id="insert">
+		insert into ahsydw_org_tree(org_tree_id, org_tree_name, org_tree_pid, org_tree_level)
+			values(#{id}, #{name}, #{pid}, #{level})
+	</insert>
+	
+	<update id="update">
+		update ahsydw_org_tree set org_tree_name = #{name} where org_tree_id = #{id}
+	</update>
+	
+	<delete id="delete" statementType="CALLABLE">
+		{ call org_tree_delete( #{id,mode=IN,jdbcType=VARCHAR} ) }
+	</delete>
+	
+</mapper>
