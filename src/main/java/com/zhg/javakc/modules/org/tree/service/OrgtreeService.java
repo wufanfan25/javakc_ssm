@@ -23,7 +23,6 @@ public class OrgtreeService extends BaseService<OrgtreeDao, OrgtreeEntity> {
 	
 	/**
 	 * 查询列表数据
-	 * @param entity
 	 * @return
 	 */
 	public List<Map<String, Object>> findList() {
@@ -76,7 +75,7 @@ public class OrgtreeService extends BaseService<OrgtreeDao, OrgtreeEntity> {
 	
 	/**
 	 * 删除数据（删除）
-	 * @param entity
+	 * @param id
 	 */
 	@Transactional(readOnly = false)
 	public Map<String, Object> delete(String id) {
