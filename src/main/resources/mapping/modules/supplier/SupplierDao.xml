@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhg.javakc.modules.supplier.dao.SupplierDao">
+
+	<select id="findList" resultType="com.zhg.javakc.modules.supplier.entity.SupplierEntity" >
+       SELECT SUPPLIER_CODE AS supplierCode ,
+       SUPPLIER_NAME AS supplierName ,
+       SUPPLIER_CLASS AS supplierClass,
+       SUPPLIER_LINKMAN AS supplierLinkman,
+       LINKMAN_PHONE AS linkmanPhone,
+       NECESSARY_CONTRACT AS NecessaryContract,
+       ENABLE_PORTAL AS EnablePortal
+       FROM DATA_SUPPLIER WHERE 1 = 1
+    </select>
+
+  <insert id="get">
+    INSERT INTO DATA_SUPPLIER(SUPPLIER_ID,SUPPLIER_TYPE,SUPPLIER_NAME,SUPPLIER_CLASS,SUPPLIER_ABBR,LEGAL_PERSON,legalper_phone,supplier_address,Social_code,supplier_linkman,linkman_phone,linkman_email) VALUES
+    (#{supplierId},#{supplierType},#{supplierName},#{supplierClass},#{supplierAbbr},#{legalPerson},#{legalperPhone},#{supplierAddress},#{socialCode},#{supplierLinkman},#{linkmanPhone},#{linkmanEmail})
+
+     </insert>
+
+
+</mapper>
