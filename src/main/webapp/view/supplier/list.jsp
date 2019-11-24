@@ -14,13 +14,13 @@
         <div class="alert alert-success" role="alert">测试模块详细信息</div>
         <div class="col-sm-8">
           <div class="btn-group hidden-xs" role="group">
-            <button type="button" class="btn btn-primary" data-toggle="modal" id="create" name="test/create.jsp">
+            <button type="button" class="btn btn-primary" data-toggle="modal" id="create" name="supplier/create.jsp">
               <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>添加
             </button>
-            <button type="button" class="btn btn-success" data-toggle="modal" id="update" name="test/view.do">
+            <button type="button" class="btn btn-success" data-toggle="modal" id="update" name="supplier/view.do">
               <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>修改
             </button>
-            <button type="button" class="btn btn-danger" data-toggle="modal" id="delete" name="test/delete.do">
+            <button type="button" class="btn btn-danger" data-toggle="modal" id="delete" name="supplier/delete.do">
               <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>删除
             </button>
           </div>
@@ -51,15 +51,17 @@
           <c:set var="vs"></c:set>
           <c:forEach var="e" items="${page.list}" varStatus="v">
             <tr>
-              <td><input type="checkbox" name="ids" value="${e.supplierCode }"/></td>
+              <td><input type="checkbox"/></td>
+              <td>${e.supplierCode }</td>
+              <td>${e.supplierCode }</td>
               <td>${e.supplierName }</td>
               <td>${e.supplierClass }</td>
               <td>${e.supplierLinkman }</td>
               <td>${e.linkmanPhone }</td>
-              <td>${e.NecessaryContract }</td>
-              <td>${e.EnablePortal }</td>
+              <td>${e.necessaryContract }</td>
+              <td>${e.enablePortal }</td>
               <td>编辑</td>
-              <td>$<button>账户管理</button></td>
+              <td><button>账户管理</button></td>
             </tr>
           </c:forEach>
           </tbody>
