@@ -7,6 +7,7 @@ import com.zhg.javakc.modules.supplier.entity.SupplierEntity;
 import com.zhg.javakc.modules.supplier.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,9 +32,17 @@ public String save(SupplierEntity supplierentity){
       supplierentity.setSupplierId(CommonUtil.uuid());
      supplierService.save(supplierentity);
      return "redirect:querySupplier.do";
-
-
-
+  }
+  @RequestMapping("/view")
+  public String view(String ids, ModelMap modelMap){
+    SupplierEntity supplierEntity = supplierService.get(ids);
+    modelMap.put("supplierEntity",supplierEntity);
+    return "supplier/update";
+  }
+  @RequestMapping("/update")
+  public String update(SupplierEntity supplierentity){
+    supplierService.update(supplierentity);
+    return  "redirect:querySupplier.do";
   }
 
 
