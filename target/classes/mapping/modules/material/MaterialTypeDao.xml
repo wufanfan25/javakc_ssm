@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhg.javakc.modules.material.dao.MaterialTypeDao">
+
+
+	<select id="findAllList" resultType="com.zhg.javakc.modules.material.entity.MaterialType">
+	   	select
+	   	mtype_id  "mtypeId",
+        mtype_name  "mtypeName" ,
+        mtype_abbr   "mtypeAbbr",
+        mtype_code    "mtypeCode",
+        mtype_level    "mtypeLevel",
+        mtype_weight    "mtypeWeight",
+        mtype_pid        "mtypePid"
+        from MATERIAL_TYPE where 1 = 1  order by mtype_Weight
+	</select>
+
+    <update id="update">
+        update MATERIAL_TYPE set
+        mtype_name=#{mtypeName},mtype_abbr=#{mtypeAbbr},mtype_code=#{mtypeCode}
+        where mtype_id = #{mtypeId}
+    </update>
+
+    <insert id="insert">
+        insert into
+        MATERIAL_TYPE(mtype_id,mtype_name,mtype_abbr,mtype_code,mtype_level,mtype_pid) values
+        (#{mtypeId},#{mtypeName},#{mtypeAbbr},#{mtypeCode},#{mtypeLevel},#{mtypePid})
+    </insert>
+
+    <!-- 调用递归删除物资类别的存储过程 -->
+    <delete id="deleteType" parameterType="String" statementType="CALLABLE">
+        { call materialtype_delete(#{mtypeId,mode=IN,jdbcType=VARCHAR})}
+    </delete>
+
+    <!-- 调用序列获取物资类型的编码 -->
+    <select id="findTypeCode" resultType="java.lang.Integer" useCache="false" flushCache="true">
+        select MATERIALTYPECODE.NEXTVAL from DUAL
+    </select>
+
+</mapper>

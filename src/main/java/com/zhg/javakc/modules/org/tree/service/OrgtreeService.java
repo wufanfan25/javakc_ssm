@@ -1,18 +1,17 @@
 package com.zhg.javakc.modules.org.tree.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.zhg.javakc.base.service.BaseService;
 import com.zhg.javakc.base.util.CommonUtil;
 import com.zhg.javakc.modules.org.tree.dao.OrgtreeDao;
 import com.zhg.javakc.modules.org.tree.entity.OrgtreeEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional(readOnly=true)
@@ -29,7 +28,8 @@ public class OrgtreeService extends BaseService<OrgtreeDao, OrgtreeEntity> {
 		//查询所有结构树数据
 		List<OrgtreeEntity> list = dao.findList(null);
 		//封装数据到Map中, 以方便转JSON
-		List<Map<String, Object>> mapList = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> mapList = new ArrayList<Map<String, Object>>
+				();
 		list.forEach( entity -> {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("id", entity.getId());
