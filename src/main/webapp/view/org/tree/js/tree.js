@@ -106,7 +106,7 @@ $(document).ready(function() {
 				text : data.message
 			});
 		}, 'json');
-		
+
 		$('#modal-form').modal('hide');
 	});
 
