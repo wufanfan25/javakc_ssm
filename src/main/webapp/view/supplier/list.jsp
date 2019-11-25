@@ -43,7 +43,6 @@
             <th>必须合同</th>
             <th>是否启用门户</th>
             <th>操作</th>
-            <th>    </th>
             <th>账号管理</th>
           </tr>
           </thead>
@@ -51,16 +50,15 @@
           <c:set var="vs"></c:set>
           <c:forEach var="e" items="${page.list}" varStatus="v">
             <tr>
-              <td><input type="checkbox"/></td>
-              <td>${e.supplierCode }</td>
+              <td><input type="checkbox" name="ids" value="${e.supplierId }"/></td>
+
               <td>${e.supplierCode }</td>
               <td>${e.supplierName }</td>
               <td>${e.supplierClass }</td>
               <td>${e.supplierLinkman }</td>
               <td>${e.linkmanPhone }</td>
-              <td>${e.necessaryContract }</td>
-              <td>${e.enablePortal }</td>
-              <td>编辑</td>
+              <td>${e.necessaryContract==1?"是":"否"}</td>
+              <td>${e.enablePortal==1?"是":"否"}</td>
               <td><button>账户管理</button></td>
             </tr>
           </c:forEach>
