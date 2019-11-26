@@ -117,6 +117,12 @@ public class MaterialEntity extends BaseEntity<MaterialEntity> {
      */
     private int materialState;
 
+    /**
+     * 创建人
+     * @return
+     */
+    private  String createrUser;
+
     public String getMaterialId() {
         return materialId;
     }
@@ -299,5 +305,13 @@ public class MaterialEntity extends BaseEntity<MaterialEntity> {
 
     public void setMaterialPhoto(byte[] materialPhoto) {
         this.materialPhoto = materialPhoto;
+    }
+
+    public String getCreaterUser() {
+        return createrUser;
+    }
+
+    public void setCreaterUser(String createrUser) {
+        this.createrUser = createrUser;
     }
 }

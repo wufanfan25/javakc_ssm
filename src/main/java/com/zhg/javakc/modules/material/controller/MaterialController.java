@@ -1,15 +1,18 @@
 package com.zhg.javakc.modules.material.controller;
 
 import com.zhg.javakc.base.page.Page;
+import com.zhg.javakc.base.util.CommonUtil;
 import com.zhg.javakc.modules.material.entity.MaterialEntity;
 import com.zhg.javakc.modules.material.service.MaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Timestamp;
 
 @Controller
 @RequestMapping("/material")
@@ -24,6 +27,29 @@ public class MaterialController {
         Page<MaterialEntity> page = materialService.queryTest(materialEntity, new Page<MaterialEntity>(request, response));
         modelAndView.addObject(page);
         return modelAndView;
+    }
+
+    @RequestMapping("/save")
+    public String save(MaterialEntity materialEntity){
+        materialEntity.setMaterialId(CommonUtil.uuid());
+        materialEntity.setUpdateDate(new Timestamp(System.currentTimeMillis()));
+
+        materialService.save(materialEntity);
+        return "redirect:queryList.do";
+    }
+
+    @RequestMapping("/view")
+    public String view(String ids, ModelMap modelMap){
+        MaterialEntity materialEntity=materialService.get(ids);
+        modelMap.put("materialEntity",materialEntity);
+        return "material/update";
+    }
+
+    @RequestMapping("/update")
+    public String update(MaterialEntity materialEntity){
+        materialEntity.setUpdateDate(new Timestamp(System.currentTimeMillis()));
+        materialService.update(materialEntity);
+        return "redirect:queryList.do";
     }
 
 }

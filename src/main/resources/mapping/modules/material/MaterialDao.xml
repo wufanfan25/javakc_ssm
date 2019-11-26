@@ -6,9 +6,40 @@
 		SELECT MATERIAL_ID AS materialId , MATERIAL_CODE AS materialCode , MATERIAL_NAME AS materialName,
 		MATERIAL_SPECS AS materialSpecs , MATERIAL_ABBR AS materialAbbr , MATERIAL_UNIT AS materialUnit,
 		MATERIAL_TYPE AS materialType , MATERIAL_STATE AS materialState , UPDATE_DATE AS Updatedate,
-		CREATE_USER AS createUser
+		CREATE_USER AS createrUser
 		FROM DATA_MATERIAL WHERE 1 = 1
 
 	</select>
+
+	<insert id="insert" >
+     INSERT INTO DATA_MATERIAL(MTYPE_ID_NAME,MATERIAL_NAME,MATERIAL_SPECS,MATERIAL_ABBR,MATERIAL_COMMENT,MATERIAL_PHOTO,MATERIAL_CODING,MATERIAL_TYPE
+     ,LIMIT_CONTRACT,MATERIAL_GROUP,MATERIAL_EXP,TAX_RATE,MATERIAL_UNIT,MATERIAL_PROU,MATERIAL_SUTTLE,MATERIAL_GW,MATERIAL_VOLUME,VOLUME_UNIT,UPDATE_DATE
+     ,CREATE_USER,MATERIAL_CODE,MATERIAL_STATE)
+     VALUES (#{mtypeIdName},#{materialName},#{materialSpecs},#{materialAbbr},#{materialComment},#{materialPhoto},#{materialCoding},#{materialType},
+     #{limitContract},#{materialGroup},#{materialExp},#{taxRate},#{materialUnit},#{materialProu},#{materialSuttle},#{materialGw},#{materialVolume},
+     #{volumeUnit},#{updateDate},#{createruser},#{materialCode},1)
+ </insert>
+
+	<select id="get" resultType="com.zhg.javakc.modules.material.entity.MaterialEntity" >
+		SELECT MATERIAL_ID AS materialId , MATERIAL_CODE AS materialCode , MATERIAL_NAME AS materialName,
+		MATERIAL_SPECS AS materialSpecs , MATERIAL_ABBR AS materialAbbr , MATERIAL_UNIT AS materialUnit,
+		MATERIAL_TYPE AS materialType , MATERIAL_STATE AS materialState , UPDATE_DATE AS Updatedate,
+		CREATE_USER AS createrUser , MTYPE_ID_NAME AS mtypeIdName , MATERIAL_COMMENT AS materialComment ,
+		MATERIAL_PHOTO AS materialPhoto , MATERIAL_CODING AS materialCoding , LIMIT_CONTRACT AS limitContract ,
+		MATERIAL_GROUP AS materialGroup , MATERIAL_EXP AS materialExp , TAX_RATE AS taxRate , MATERIAL_PROU AS materialProu ,
+		MATERIAL_SUTTLE AS materialSuttle , MATERIAL_GW AS materialGw , MATERIAL_VOLUME AS materialVolume , VOLUME_UNIT AS volumeUnit,
+		MATERIAL_CODE AS materialCode , MATERIAL_STATE AS materialstate
+		FROM DATA_MATERIAL WHERE MATERIAL_ID=#{0}
+
+	</select>
+
+	<update id="update">
+        update DATA_MATERIAL SET MTYPE_ID_NAME = #{mtypeIdName},MATERIAL_NAME =#{materialName}, MATERIAL_SPECS = #{materialSpecs},MATERIAL_ABBR=#{materialAbbr},
+        MATERIAL_COMMENT=#{materialComment},MATERIAL_PHOTO=#{materialPhoto},MATERIAL_CODING=#{materialCoding},MATERIAL_TYPE=#{materialType},LIMIT_CONTRACT=#{limitContract},
+        MATERIAL_GROUP=#{materialGroup},MATERIAL_EXP=#{materialExp},TAX_RATE=#{taxRate},MATERIAL_UNIT=#{materialUnit},MATERIAL_PROU=#{materialProu},MATERIAL_SUTTLE=#{materialSuttle},
+        MATERIAL_GW=#{materialGw},MATERIAL_VOLUME=#{materialVolume},VOLUME_UNIT=#{volumeUnit},UPDATE_DATE=#{updateDate},CREATE_USER=#{createruser},MATERIAL_CODE=#{materialCode},
+        MATERIAL_STATE=#{materialstate}
+        WHERE MATERIAL_ID = #{materialId}
+    </update>
 	
 </mapper>

@@ -39,7 +39,6 @@ public class TestController {
 
     @RequestMapping("/view")
     public String view(String ids, ModelMap modelMap){
-
         TestEntity testEntity = testService.get(ids);
         modelMap.put("testEntity",testEntity);
         return "test/update";

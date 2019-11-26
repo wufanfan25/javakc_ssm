@@ -15,13 +15,13 @@
 	                <div class="col-sm-8">
 	                	<div class="btn-group hidden-xs" role="group">
                 			<button type="button" class="btn btn-primary" data-toggle="modal" id="create" name="material/create.jsp">
-	                            <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>添加
+	                            <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>新增
 	                        </button>
 	                        <button type="button" class="btn btn-success" data-toggle="modal" id="update" name="material/view.do">
-	                            <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>修改
+	                            <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>编辑
 	                        </button>
 	                        <button type="button" class="btn btn-danger" data-toggle="modal" id="delete" name="material/delete.do">
-	                            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>删除
+	                            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>停用
 	                        </button>
 		                 </div>
 	                </div>
@@ -41,9 +41,10 @@
 									<th>规格</th>
 									<th>物资分类</th>
 									<th>基本单位</th>
-									<th>状态</th>
+									<th>物资状态</th>
 									<th>修改时间</th>
 									<th>创建人</th>
+                                    <th>操作</th>
 					            </tr>
 					        </thead>
 					        <tbody>
@@ -57,9 +58,10 @@
 										<td>${e.materialSpecs }</td>
 										<td>${e.materialType }</td>
 										<td>${e.materialUnit }</td>
-										<td>${e.materialState }</td>
-										<td>${e.updateDate }</td>
-										<td>${e.createUser }</td>
+										<td><zhg:show codeTp="materialstate" value="${e.materialState}"/> </td>
+										<td><fmt:formatDate value="${e.updateDate}" pattern="yyyy-MM-dd"/></td>
+										<td>${e.createrUser}</td>
+                                        <td></td>
 						            </tr>
 					            </c:forEach>
 					        </tbody>

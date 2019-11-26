@@ -5,6 +5,7 @@
 		<title>测试模块添加页面</title>
 		<%@ include file="../../common/jsp/header.jsp"%>
 		<link href="${path }/static/css/plugins/file-input/fileinput.min.css" rel="stylesheet">
+<%--		<link href="${path }/static/css/plugins/file-input/bootstrap-fileinput.css" rel="stylesheet">--%>
 	</head>
 	<body>
 		<div class="wrapper wrapper-content animated fadeInRight">
@@ -48,6 +49,6 @@
 			</div>
 		</div>
 	</body>
-	<script type="text/javascript" src="${path }/static/js/plugins/file-input/fileinput.min.js"></script>
+<%--	<script type="text/javascript" src="${path }/static/js/plugins/file-input/fileinput.min.js"></script>--%>
 	<script type="text/javascript" src="./js/dictionary.js"></script>
 </html>

@@ -27428,7 +27428,7 @@
 
             /**
              * Shortcut to set the subtitle options. This can also be done from {@link
-             * Chart#update} or {@link Chart#setTitle}.
+             * update} or {@link Chart#setTitle}.
              *
              * @param  {SubtitleOptions} options
              *         New subtitle options. The subtitle text itself is set by the
