@@ -19,7 +19,7 @@
                        <div class="form-group">
                           <label class="col-sm-2 control-label" for="ds_host">名称</label>
                           <div class="col-sm-4">
-                             <input class="form-control" type="text" name="testName" placeholder="名称"/>
+                             <input class="form-control" id="ds_host" type="text" name="testName" placeholder="名称"/>
                           </div>
                           <label class="col-sm-2 control-label" for="ds_name">性别</label>
                           <div class="col-sm-4">

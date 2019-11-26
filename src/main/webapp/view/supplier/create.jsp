@@ -42,57 +42,57 @@
                          </div>
                        </div>
                       <div class="form-group">
-                        <label class="col-sm-2 control-label" for="ds_host">供应商简称</label>
+                        <label class="col-sm-2 control-label" for="ds_username">供应商简称：</label>
                         <div class="col-sm-2">
                           <input class="form-control" type="text"  name="supplierAbbr"/>
                         </div>
-                        <div class="form-group">
-                        <label class="col-sm-2 control-label" for="ds_host">法人</label>
+                        <label class="col-sm-2 control-label" for="ds_username">法人：</label>
                         <div class="col-sm-2">
                           <input class="form-control" type="text"  name="legalPerson"/>
                         </div>
-                        <label class="col-sm-2 control-label" for="ds_host">法人电话</label>
+                        <label class="col-sm-2 control-label" for="ds_username">法人电话：</label>
                         <div class="col-sm-2">
                           <input class="form-control" type="text"  name="legalperPhone"/>
                         </div>
-                        </div>
                       </div>
+
                       <div class="form-group">
-                        <label class="col-sm-2 control-label" for="ds_host">供应商地址</label>
-                        <div class="col-sm-4">
+                        <label class="col-sm-2 control-label" for="ds_username">供应商地址：</label>
+                        <div class="col-sm-2">
                           <input class="form-control" type="text"  name="supplierAddress"/>
                         </div>
-                        <label class="col-sm-2 control-label" for="ds_host">供应商地址</label>
-                        <div class="col-sm-4">
-                          <input class="form-control" type="text"  name="SocialCode"/>
+                        <label class="col-sm-2 control-label" for="ds_username">社会统一信任代码：</label>
+                        <div class="col-sm-2">
+                          <input class="form-control" type="text"  name="socialCode"/>
                         </div>
                       </div>
+
                       <div class="form-group">
-                        <label class="col-sm-2 control-label" for="ds_host">联系人</label>
-                        <div class="col-sm-4">
+                        <label class="col-sm-2 control-label" for="ds_username">联系人：</label>
+                        <div class="col-sm-2">
                           <input class="form-control" type="text"  name="supplierLinkman"/>
                         </div>
-                        <label class="col-sm-2 control-label" for="ds_host">联系电话</label>
-                        <div class="col-sm-4">
+                        <label class="col-sm-2 control-label" for="ds_username">联系电话：</label>
+                        <div class="col-sm-2">
                           <input class="form-control" type="text"  name="linkmanPhone"/>
                         </div>
-                        <label class="col-sm-2 control-label" for="ds_host">联系人邮箱</label>
-                        <div class="col-sm-4">
+                        <label class="col-sm-2 control-label" for="ds_username">联系人邮箱：</label>
+                        <div class="col-sm-2">
                           <input class="form-control" type="text"  name="linkmanEmail"/>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label class="col-sm-2 control-label" for="ds_host">启用门户</label>
-                        <div class="col-sm-3">
-                          <input type="checkbox" name="EnablePortal" />
-                        </div>
-                          <label class="col-sm-2 control-label" for="ds_host">必须合同</label>
-                          <div class="col-sm-4">
-                          <input type="checkbox" name="NecessaryContract" />
-                          </div>
-                        </div>
 
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="ds_username">启用门户：</label>
+                        <div class="col-sm-1">
+                          <input type="checkbox"  name="enablePortal"/>
+                        </div>
+                        <label class="col-sm-2 control-label" for="ds_username">必须合同：</label>
+                        <div class="col-sm-1">
+                          <input type="checkbox"  name="necessaryContract"/>
+                        </div>
                       </div>
+
                     </fieldset>
                     <fieldset>
                         <div class="form-group">
