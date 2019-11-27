@@ -55,7 +55,14 @@ public class MaterialController {
     @RequestMapping("/update")
     public String update(MaterialEntity materialEntity){
         materialEntity.setUpdateDate(new Timestamp(System.currentTimeMillis()));
+
         materialService.update(materialEntity);
+        return "redirect:queryList.do";
+    }
+
+    @RequestMapping("/deletematerial")
+    public String deletematerial(String [] ids){
+        materialService.delete(ids);
         return "redirect:queryList.do";
     }
 

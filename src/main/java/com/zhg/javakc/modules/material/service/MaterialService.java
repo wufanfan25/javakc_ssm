@@ -6,6 +6,7 @@ import com.zhg.javakc.modules.material.dao.MaterialDao;
 import com.zhg.javakc.modules.material.entity.MaterialEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class MaterialService extends BaseService<MaterialDao, MaterialEntity> {
         }
         return s1;
     }
+
 
 
 

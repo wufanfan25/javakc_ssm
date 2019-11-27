@@ -6,7 +6,7 @@
 		SELECT MATERIAL_ID AS materialId , MATERIAL_CODE AS materialCode , MATERIAL_NAME AS materialName,
 		MATERIAL_SPECS AS materialSpecs , MATERIAL_ABBR AS materialAbbr , MATERIAL_UNIT AS materialUnit,
 		MATERIAL_TYPE AS materialType , MATERIAL_STATE AS materialState , UPDATE_DATE AS Updatedate,
-		CREATE_USER AS createrUser
+		CREATE_USER AS createrUser , MTYPE_ID_NAME AS mtypeIdName
 		FROM DATA_MATERIAL WHERE 1 = 1
 
 	</select>
@@ -19,19 +19,19 @@
      ,LIMIT_CONTRACT,MATERIAL_GROUP,MATERIAL_EXP,
      TAX_RATE,MATERIAL_UNIT,MATERIAL_PROU,
      MATERIAL_SUTTLE,MATERIAL_GW,MATERIAL_VOLUME,
-     VOLUME_UNIT ,CREATE_USER,MATERIAL_CODE,MATERIAL_STATE)
+     VOLUME_UNIT ,CREATE_USER,MATERIAL_CODE,UPDATE_DATE,MATERIAL_STATE)
      VALUES (#{mtypeId},#{mtypeIdName},#{materialId},#{materialName},
      #{materialSpecs},#{materialAbbr},#{materialComment},
      #{materialPhoto},#{materialCoding},#{materialType},
      #{limitContract},#{materialGroup},#{materialExp},
      #{taxRate},#{materialUnit},#{materialProu},
      #{materialSuttle},#{materialGw},#{materialVolume},
-     #{volumeUnit},'张三',#{materialCode},1)
+     #{volumeUnit},'张三',#{materialCode},#{updateDate},1)
  </insert>
 
 	<select id="get" resultType="com.zhg.javakc.modules.material.entity.MaterialEntity" >
 		SELECT MATERIAL_ID AS materialId , MATERIAL_CODE AS materialCode , MATERIAL_NAME AS materialName,
-		MATERIAL_SPECS AS materialSpecs , MATERIAL_ABBR AS materialAbbr , MATERIAL_UNIT AS materialUnit,
+		MATERIAL_SPECS AS materialSpecs , MATERIAL_ABBR AS materialAbbr , MATERIAL_UNIT AS materialUnit, MTYPE_ID AS mtypeId,
 		MATERIAL_TYPE AS materialType , MATERIAL_STATE AS materialState , UPDATE_DATE AS Updatedate,
 		CREATE_USER AS createrUser , MTYPE_ID_NAME AS mtypeIdName , MATERIAL_COMMENT AS materialComment ,
 		MATERIAL_PHOTO AS materialPhoto , MATERIAL_CODING AS materialCoding , LIMIT_CONTRACT AS limitContract ,
@@ -46,13 +46,20 @@
         update DATA_MATERIAL SET MTYPE_ID_NAME = #{mtypeIdName},MATERIAL_NAME =#{materialName}, MATERIAL_SPECS = #{materialSpecs},MATERIAL_ABBR=#{materialAbbr},
         MATERIAL_COMMENT=#{materialComment},MATERIAL_PHOTO=#{materialPhoto},MATERIAL_CODING=#{materialCoding},MATERIAL_TYPE=#{materialType},LIMIT_CONTRACT=#{limitContract},
         MATERIAL_GROUP=#{materialGroup},MATERIAL_EXP=#{materialExp},TAX_RATE=#{taxRate},MATERIAL_UNIT=#{materialUnit},MATERIAL_PROU=#{materialProu},MATERIAL_SUTTLE=#{materialSuttle},
-        MATERIAL_GW=#{materialGw},MATERIAL_VOLUME=#{materialVolume},VOLUME_UNIT=#{volumeUnit},UPDATE_DATE=#{updateDate},CREATE_USER=#{createruser},MATERIAL_CODE=#{materialCode},
-        MATERIAL_STATE=#{materialstate}
+        MATERIAL_GW=#{materialGw},MATERIAL_VOLUME=#{materialVolume},VOLUME_UNIT=#{volumeUnit},UPDATE_DATE=#{updateDate},CREATE_USER='李四',
+        MATERIAL_STATE=1
         WHERE MATERIAL_ID = #{materialId}
     </update>
 
 	<select id="findMaterialCode" resultType="java.lang.Integer" useCache="false" flushCache="true">
         select MATERIALCODE.NEXTVAL from DUAL
     </select>
+
+    <update id="delete">
+        update DATA_MATERIAL SET MATERIAL_STATE=0 WHERE MATERIAL_ID IN
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
 	
 </mapper>

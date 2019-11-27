@@ -18,7 +18,9 @@ public class MaterialEntity extends BaseEntity<MaterialEntity> {
      */
     private String mtypeIdName;
 
-
+    /**
+     * 类型ID
+     */
     private String mtypeId;
 
     /*

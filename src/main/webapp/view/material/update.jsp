@@ -1,76 +1,80 @@
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>物资编辑页面</title>
-		<%@ include file="../../common/jsp/header.jsp"%>
-		<link href="${path }/static/css/plugins/file-input/fileinput.min.css" rel="stylesheet">
-	</head>
-	<body>
-		<div class="wrapper wrapper-content animated fadeInRight">
-			<div>
-				<div class="col-sm-4"><input type="button" value="返回上一页" class="btn btn-success" onclick="javascript:history.back();"/></div>
-			</div>
-			<div class="ibox float-e-margins">
-				<form action="${path }/material/save.do" method="post" class="form-horizontal" role="form">
-					<input id="materialId" name="materialId" type="hidden" value="${materialEntity.materialId}" >
-                    <fieldset>
-                        <legend>物资基本信息编辑</legend>
-                       <div class="form-group">
-						   <label class="col-sm-2 control-label">物资分类</label>
-						   <div class="col-sm-4">
-							   <input class="form-control" type="text" name="mtypeIdName" value="${materialEntity.mtypeIdName}" placeholde 551r="物资分类"/>
-						   </div>
+<head>
+	<title>物资编辑页面</title>
+	<%@ include file="../../common/jsp/header.jsp"%>
+	<link rel="stylesheet" href="${ctx }/static/css/plugins/ztree/demo.css" type="text/css">
+	<link rel="stylesheet" href="${ctx }/static/css/plugins/ztree/zTreeStyle/zTreeStyle.css" type="text/css">
+	<link href="${path }/static/css/plugins/file-input/fileinput.min.css" rel="stylesheet">
+	<%--		<link href="${path }/static/css/plugins/file-input/bootstrap-fileinput.css" rel="stylesheet">--%>
+</head>
+<body>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div>
+		<div class="col-sm-4"><input type="button" value="返回上一页" class="btn btn-success" onclick="javascript:history.back();"/></div>
+	</div>
+	<div class="ibox float-e-margins">
+		<form action="${path}/material/update.do" method="post" class="form-horizontal" role="form">
+			<input id="materialId" name="materialId" type="hidden" value="${materialEntity.materialId}" >
+			<fieldset>
+				<legend>物资基本信息</legend>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">物资分类</label>
+					<div class="col-sm-4">
+						<input type="hidden" value="${materialEntity.mtypeId}" id="selectnodeId" name="mtypeId">
+						<input class="form-control" id="menuBtn" type="text" name="mtypeIdName" readonly value="${materialEntity.mtypeIdName}" onclick="showMenu(); return false;" placeholder="物资分类"/>
+					</div>
 
-                          <label class="col-sm-2 control-label" >物资名称</label>
-                          <div class="col-sm-4">
-                             <input class="form-control" type="text" name="materialName" value="${materialEntity.materialName}" placeholder="物资名称"/>
-                          </div>
-                       </div>
-                       <div class="form-group">
-                          <label class="col-sm-2 control-label" >规格</label>
-                          <div class="col-sm-4">
-							  <input class="form-control" type="text" name="materialSpecs" value="${materialEntity.materialSpecs}" placeholder="物资规格,例:10斤/箱"/>
-                          </div>
+					<label class="col-sm-2 control-label" >物资名称</label>
+					<div class="col-sm-4">
+						<input class="form-control" type="text"  name="materialName" value="${materialEntity.materialName}"  placeholder="物资名称"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" >规格</label>
+					<div class="col-sm-4">
+						<input class="form-control" type="text"  name="materialSpecs" value="${materialEntity.materialSpecs}" placeholder="物资规格,例:10斤/箱"/>
+					</div>
 
-						   <label class="col-sm-2 control-label" >物资简称</label>
-						   <div class="col-sm-4">
-							   <input class="form-control" type="text" name="materialAbbr" value="${materialEntity.materialAbbr}" placeholder="物资简称"/>
-						   </div>
-                       </div>
+					<label class="col-sm-2 control-label" >物资简称</label>
+					<div class="col-sm-4">
+						<input class="form-control" type="text" name="materialAbbr" value="${materialEntity.materialAbbr}" placeholder="物资简称"/>
+					</div>
+				</div>
 
-						<div class="form-group">
-							<label class="col-sm-2 control-label" >物资简述</label>
-							<div class="col-sm-8">
-								<input class="form-control" type="text"  name="materialComment" value="${materialEntity.materialComment}"/>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" >物资简述</label>
+					<div class="col-sm-8">
+						<input class="form-control" type="text" name="materialComment" value="${materialEntity.materialComment}" />
+					</div>
+				</div>
+
+				<%--图片...--%>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label" >物资图片</label>
+					<div class="col-md-8">
+						<div class="fileinput fileinput-new" data-provides="fileinput" id="uploadImageDiv">
+							<%--									<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">--%>
+							<%--										<img src="${companyInfo.image}" alt="" />--%>
+							<%--									</div>--%>
+							<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+
+							<div class="form-group">
+                        <span class="btn default btn-file">
+							<label class="col-md-4">
+								<span class="fileinput-new">选择图片</span>
+							</label>
+<%--							<label class="col-md-4"><span class="fileinput-exists">更改</span></label>--%>
+							<input type="file" name="materialPhoto" id="materialPhoto" />
+						</span>
+
+								<a href="#" class="btn-file" data-dismiss="fileinput">移除</a>
+								<span>请选择1M以内图片</span>
 							</div>
+
 						</div>
-
-						<%--图片...--%>
-
-<%--						<div class="form-group">--%>
-<%--							<label class="col-sm-2 control-label" >物资图片</label>--%>
-<%--							<div class="col-md-8">--%>
-<%--								<div class="fileinput fileinput-new" data-provides="fileinput" id="uploadImageDiv">--%>
-<%--&lt;%&ndash;									<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">&ndash;%&gt;--%>
-<%--&lt;%&ndash;										<img src="${companyInfo.image}" alt="" />&ndash;%&gt;--%>
-<%--&lt;%&ndash;									</div>&ndash;%&gt;--%>
-<%--									<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>--%>
-
-<%--						<div class="form-group">--%>
-<%--                        <span class="btn default btn-file">--%>
-<%--							<label class="col-md-4">--%>
-<%--								<span class="fileinput-new">选择图片</span>--%>
-<%--							</label>--%>
-<%--&lt;%&ndash;							<label class="col-md-4"><span class="fileinput-exists">更改</span></label>&ndash;%&gt;--%>
-<%--							<input type="file" name="materialPhoto" id="materialPhoto" />--%>
-<%--						</span>--%>
-
-<%--								<a href="#" class="btn-file" data-dismiss="fileinput">移除</a>--%>
-<%--								<span>请选择1M以内图片</span>--%>
-<%--								</div>--%>
-
-<%--						</div>--%>
 
 
 						<div class="form-group">
@@ -97,7 +101,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >物资组</label>
 							<div class="col-sm-4">
-								<select class="form-control" name="materialType">
+								<select class="form-control" name="materialGroup">
 									<option value="组一">组一</option>
 									<option value="组二">组二</option>
 								</select>
@@ -158,32 +162,36 @@
 									<option value="分米">分米</option>
 								</select>
 							</div>
-
 						</div>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<div class="form-group">
+					<label class="col-sm-2 control-label"></label>
+					<div class="col-sm-4">
+						<input type="submit" value="提交" class="btn btn-primary"/>
+					</div>
+					<label class="col-sm-2 control-label" ></label>
+					<div class="col-sm-4">
+						<input type="reset" value="重置" class="btn btn-danger" id="resetForm"/>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
 
-                    </fieldset>
-                    <fieldset>
-                        <div class="form-group">
-                        	<label class="col-sm-2 control-label" for="ds_host"></label>
-                           	<div class="col-sm-4">
-                              	<input type="submit" value="提交" class="btn btn-primary"/>
-                           	</div>
-                           	<label class="col-sm-2 control-label" for="ds_host"></label>
-                           	<div class="col-sm-4">
-                              	<input type="reset" value="重置" class="btn btn-danger" id="resetForm"/>
-                           	</div>
-                        </div>
-                    </fieldset>
-                </form>
-			</div>
-		</div>
-	</body>
+<div id="menuContent" class="menuContent" style="display:none; position: absolute;">
+	<ul id="tree" class="ztree" style="margin-top:0; width:220px;"></ul>
+</div>
+</body>
 
 
 <%--	<script>--%>
 <%--		var url = '';--%>
 <%--		$("#uploadImage").fileupload({--%>
-<%--			url : ROOT + "/security/company/uploadFile",--%>
+<%--			url :  ROOT+ "/security/company/uploadFile",--%>
 <%--			dataType : 'json',--%>
 <%--			autoUpload : false,--%>
 <%--			acceptFileTypes : /(gif|jpe?g|png)$/i,--%>
@@ -210,7 +218,7 @@
 
 <%--		function updateMsg() {--%>
 <%--			$.ajax({--%>
-<%--				url : ROOT + "/security/company/updateInfo",--%>
+<%--				url : ROOT +"/security/company/updateInfo",--%>
 <%--				data : {--%>
 <%--					id : $("#companyId").val(),--%>
 <%--					image : url,--%>
@@ -238,10 +246,12 @@
 <%--				}--%>
 <%--			});--%>
 <%--		}--%>
-<%--	</script>--%>
+<%-- 	</script>--%>
 
 
-	<script type="text/javascript" src="${path }/static/js/plugins/file-input/fileinput.min.js"></script>
-	<script type="text/javascript" src="${path }/static/js/plugins/file-input/bootstrap-fileinput.js"></script>
-	<script type="text/javascript" src="./js/material.js"></script>
+<script type="text/javascript" src="${path }/static/js/plugins/file-input/fileinput.min.js"></script>
+<%--	<script type="text/javascript" src="${path }/static/js/plugins/file-input/bootstrap-fileinput.js"></script>--%>
+<%--	<script type="text/javascript" src="./js/dictionary.js"></script>--%>
+<script type="text/javascript" src="./js/MaterialTypeSelect.js"></script>
+<script type="text/javascript" src="${ctx }/static/js/plugins/ztree/jquery.ztree.core-3.5.js"></script>
 </html>

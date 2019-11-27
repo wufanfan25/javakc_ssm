@@ -100,7 +100,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >物资组</label>
 							<div class="col-sm-4">
-								<select class="form-control" name="materialType">
+								<select class="form-control" name="materialGroup">
 									<option value="组一">组一</option>
 									<option value="组二">组二</option>
 								</select>
@@ -116,7 +116,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >税率</label>
 							<div class="col-sm-2">
-								<input class="form-control" type="text" name="taxRate" placeholder="格式:%"/>
+								<input class="form-control" type="text" name="taxRate" placeholder="格式:0.xx,即xx%"/>
 							</div>
 
 							<label class="col-sm-2 control-label" >基本单位</label>

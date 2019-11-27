@@ -16,6 +16,12 @@ $(function()
 		   $('#searchForm').submit();
 		}
 	});
+
+	//点击搜索 按钮触发事件
+	$('#search2').click(function()
+	{
+		$('#searchForm').submit();
+	});
 	
 	//点击展示页面添加按钮触发事件
 	$('#create').click(function()
