@@ -130,9 +130,6 @@ public class MaterialEntity extends BaseEntity<MaterialEntity> {
         return materialId;
     }
 
-    public String getMaterialIdName() {
-        return materialIdName;
-    }
 
     public String getMaterialName() {
         return materialName;
@@ -219,9 +216,6 @@ public class MaterialEntity extends BaseEntity<MaterialEntity> {
         this.materialId = materialId;
     }
 
-    public void setMaterialIdName(String materialIdName) {
-        this.materialIdName = materialIdName;
-    }
 
     public void setMaterialName(String materialName) {
         this.materialName = materialName;
