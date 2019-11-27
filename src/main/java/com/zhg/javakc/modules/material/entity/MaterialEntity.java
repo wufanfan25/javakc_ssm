@@ -7,6 +7,7 @@ import javax.persistence.Lob;
 
 
 public class MaterialEntity extends BaseEntity<MaterialEntity> {
+
     /*
     1物资ID
      */
@@ -16,6 +17,9 @@ public class MaterialEntity extends BaseEntity<MaterialEntity> {
      * 2物资类型的全路径  如: 原料类/肉类/牛肉类
      */
     private String mtypeIdName;
+
+
+    private String mtypeId;
 
     /*
     3物资名称
@@ -117,7 +121,7 @@ public class MaterialEntity extends BaseEntity<MaterialEntity> {
     private int materialState;
 
     /**
-     * 23创建人
+     * 创建人
      * @return
      */
     private  String createrUser;
@@ -126,9 +130,9 @@ public class MaterialEntity extends BaseEntity<MaterialEntity> {
         return materialId;
     }
 
-//    public String getMaterialIdName() {
-//        return materialIdName;
-//    }
+    public String getMaterialIdName() {
+        return materialIdName;
+    }
 
     public String getMaterialName() {
         return materialName;
@@ -165,6 +169,15 @@ public class MaterialEntity extends BaseEntity<MaterialEntity> {
     public String getMaterialGroup() {
         return materialGroup;
     }
+
+    public String getMtypeId() {
+        return mtypeId;
+    }
+
+    public void setMtypeId(String mtypeId) {
+        this.mtypeId = mtypeId;
+    }
+
 
     public int getMaterialExp() {
         return materialExp;
@@ -206,9 +219,9 @@ public class MaterialEntity extends BaseEntity<MaterialEntity> {
         this.materialId = materialId;
     }
 
-//    public void setMaterialIdName(String materialIdName) {
-//        this.materialIdName = materialIdName;
-//    }
+    public void setMaterialIdName(String materialIdName) {
+        this.materialIdName = materialIdName;
+    }
 
     public void setMaterialName(String materialName) {
         this.materialName = materialName;
