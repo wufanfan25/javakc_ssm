@@ -7,7 +7,7 @@
 		<link href="${path }/static/css/plugins/file-input/fileinput.min.css" rel="stylesheet">
 	</head>
 	<body>
-		<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="wrapper wrapper-content animated    fadeInRight">
 			<div>
 				<div class="col-sm-4"><input type="button" value="返回上一页" class="btn btn-success" onclick="javascript:history.back();"/></div>
 			</div>
@@ -29,7 +29,7 @@
                        <div class="form-group">
                           <label class="col-sm-2 control-label" for="ds_username">供应商名称</label>
                           <div class="col-sm-4">
-                             <input class="form-control" type="text"  name="supplierName"/>
+                             <input class="form-control" type="text"  name="supplierName" id="suppliername" required/>
                           </div>
                          <label class="col-sm-2 control-label" for="ds_host">供应商分类</label>
                          <div class="col-sm-4">
@@ -48,48 +48,48 @@
                         </div>
                         <label class="col-sm-2 control-label" for="ds_username">法人：</label>
                         <div class="col-sm-2">
-                          <input class="form-control" type="text"  name="legalPerson"/>
+                          <input class="form-control" type="text"  name="legalPerson" id="legalperson" required/>
                         </div>
                         <label class="col-sm-2 control-label" for="ds_username">法人电话：</label>
                         <div class="col-sm-2">
-                          <input class="form-control" type="text"  name="legalperPhone"/>
+                          <input class="form-control" type="text"  name="legalperPhone" id="legalperphone" required/>
                         </div>
                       </div>
 
                       <div class="form-group">
                         <label class="col-sm-2 control-label" for="ds_username">供应商地址：</label>
                         <div class="col-sm-2">
-                          <input class="form-control" type="text"  name="supplierAddress"/>
+                          <input class="form-control" type="text"  name="supplierAddress" id="supplieraddress" required/>
                         </div>
                         <label class="col-sm-2 control-label" for="ds_username">社会统一信任代码：</label>
                         <div class="col-sm-2">
-                          <input class="form-control" type="text"  name="socialCode"/>
+                          <input class="form-control" type="text"  name="socialCode" id="socialcode" required/>
                         </div>
                       </div>
 
                       <div class="form-group">
                         <label class="col-sm-2 control-label" for="ds_username">联系人：</label>
                         <div class="col-sm-2">
-                          <input class="form-control" type="text"  name="supplierLinkman"/>
+                          <input class="form-control" type="text"  name="supplierLinkman" required/>
                         </div>
                         <label class="col-sm-2 control-label" for="ds_username">联系电话：</label>
                         <div class="col-sm-2">
-                          <input class="form-control" type="text"  name="linkmanPhone"/>
+                          <input class="form-control" type="text"  name="linkmanPhone" required/>
                         </div>
                         <label class="col-sm-2 control-label" for="ds_username">联系人邮箱：</label>
                         <div class="col-sm-2">
-                          <input class="form-control" type="text"  name="linkmanEmail"/>
+                          <input class="form-control" type="text"  name="linkmanEmail" required/>
                         </div>
                       </div>
 
                       <div class="form-group">
                         <label class="col-sm-2 control-label" for="ds_username">启用门户：</label>
                         <div class="col-sm-1">
-                          <input type="checkbox"  name="enablePortal"/>
+                          <input type="checkbox"  name="enablePortal" value="0" onclick="this.value=(this.value==0)?1:0"/>
                         </div>
                         <label class="col-sm-2 control-label" for="ds_username">必须合同：</label>
                         <div class="col-sm-1">
-                          <input type="checkbox"  name="necessaryContract"/>
+                          <input type="checkbox"  name="necessaryContract" value="0" onclick="this.value=(this.value==0)?1:0"/>
                         </div>
                       </div>
 
