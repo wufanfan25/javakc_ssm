@@ -2,31 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhg.javakc.modules.supplier.dao.SupplierDao">
 
-	<select id="findList" resultType="com.zhg.javakc.modules.supplier.entity.SupplierEntity" >
-       SELECT SUPPLIER_CODE AS supplierCode ,
-       SUPPLIER_NAME AS supplierName ,
-       SUPPLIER_CLASS AS supplierClass,
-       SUPPLIER_LINKMAN AS supplierLinkman,
-       LINKMAN_PHONE AS linkmanPhone,
-       NECESSARY_CONTRACT AS necessaryContract,
-       ENABLE_PORTAL AS enablePortal,
-       SUPPLIER_ID AS supplierId,
-       SUPPLIER_TYPE AS supplierType,
-       SUPPLIER_ABBR AS supplierAbbr,
-       LEGAL_PERSON AS legalPerson,
-       supplier_address AS supplierAddress,
-       Social_code AS socialCode,
-       linkman_email AS linkmanEmail
-       FROM DATA_SUPPLIER WHERE 1 = 1
+    <select id="findList" resultType="com.zhg.javakc.modules.supplier.entity.SupplierEntity">
+        SELECT SUPPLIER_CODE AS supplierCode ,
+        SUPPLIER_NAME AS supplierName ,
+        SUPPLIER_CLASS AS supplierClass,
+        SUPPLIER_LINKMAN AS supplierLinkman,
+        LINKMAN_PHONE AS linkmanPhone,
+        NECESSARY_CONTRACT AS necessaryContract,
+        ENABLE_PORTAL AS enablePortal,
+        SUPPLIER_ID AS supplierId,
+        SUPPLIER_TYPE AS supplierType,
+        SUPPLIER_ABBR AS supplierAbbr,
+        LEGAL_PERSON AS legalPerson,
+        supplier_address AS supplierAddress,
+        Social_code AS socialCode,
+        linkman_email AS linkmanEmail
+        FROM DATA_SUPPLIER WHERE 1 = 1
+        <if test="supplierName != '' and supplierName != null">
+            AND SUPPLIER_NAME LIKE '%'||#{supplierName}||'%'
+        </if>
     </select>
 
-  <insert id="insert">
-    INSERT INTO DATA_SUPPLIER(SUPPLIER_ID,SUPPLIER_TYPE,SUPPLIER_NAME,SUPPLIER_CLASS,SUPPLIER_ABBR,LEGAL_PERSON,legalper_phone,supplier_address,Social_code,supplier_linkman,linkman_phone,linkman_email,ENABLE_PORTAL,NECESSARY_CONTRACT) VALUES
-    (#{supplierId},#{supplierType},#{supplierName},#{supplierClass},#{supplierAbbr},#{legalPerson},#{legalperPhone},#{supplierAddress},#{socialCode},#{supplierLinkman},#{linkmanPhone},#{linkmanEmail},#{enablePortal},#{necessaryContract})
+    <insert id="insert">
+    INSERT INTO DATA_SUPPLIER(SUPPLIER_ID,SUPPLIER_TYPE,SUPPLIER_NAME,SUPPLIER_CLASS,SUPPLIER_ABBR,LEGAL_PERSON,LEGALPER_PHONE,SUPPLIER_ADDRESS,SOCIAL_CODE,SUPPLIER_LINKMAN,LINKMAN_PHONE,LINKMAN_EMAIL,ENABLE_PORTAL,NECESSARY_CONTRACT,SUPPLIER_CODE) VALUES
+    (#{supplierId},#{supplierType},#{supplierName},#{supplierClass},#{supplierAbbr},#{legalPerson},#{legalperPhone},#{supplierAddress},#{socialCode},#{supplierLinkman},#{linkmanPhone},#{linkmanEmail},#{enablePortal},#{necessaryContract},#{supplierCode})
 
      </insert>
 
-  <select id="get" resultType="com.zhg.javakc.modules.supplier.entity.SupplierEntity">
+    <select id="get" resultType="com.zhg.javakc.modules.supplier.entity.SupplierEntity">
     SELECT  SUPPLIER_CODE AS supplierCode ,
        SUPPLIER_NAME AS supplierName ,
        SUPPLIER_CLASS AS supplierClass,
@@ -38,18 +41,31 @@
        SUPPLIER_TYPE AS supplierType,
        SUPPLIER_ABBR AS supplierAbbr,
        LEGAL_PERSON AS legalPerson,
+       LEGALPER_PHONE AS legalperPhone,
        supplier_address AS supplierAddress,
        Social_code AS socialCode,
        linkman_email AS linkmanEmail
        FROM DATA_SUPPLIER
        WHERE SUPPLIER_ID=#{0}
   </select>
-  <update id="update">
+    <update id="update">
 UPDATE DATA_SUPPLIER SET SUPPLIER_TYPE=#{supplierType},SUPPLIER_NAME=#{supplierName},
 SUPPLIER_CLASS=#{supplierClass},SUPPLIER_ABBR=#{supplierAbbr},LEGAL_PERSON=#{legalPerson},
 legalper_phone=#{legalperPhone},supplier_address=#{supplierAddress},Social_code=#{socialCode},supplier_linkman=#{supplierLinkman},
 linkman_phone=#{linkmanPhone},linkman_email=#{linkmanEmail} WHERE SUPPLIER_ID=#{supplierId}
   </update>
+
+    <!-- 调用序列获取供应商的编码 -->
+    <select id="findSupplierCode" resultType="java.lang.Integer" useCache="false" flushCache="true">
+        select SUPPLIERCODE.NEXTVAL from DUAL
+    </select>
+
+    <delete id="delete" parameterType="java.lang.String">
+	       DELETE FROM DATA_SUPPLIER WHERE SUPPLIER_ID IN
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 
 
 </mapper>
