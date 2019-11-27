@@ -7,7 +7,9 @@ import com.zhg.javakc.modules.material.entity.MaterialEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MaterialService extends BaseService<MaterialDao, MaterialEntity> {
@@ -21,6 +23,20 @@ public class MaterialService extends BaseService<MaterialDao, MaterialEntity> {
         //根据分页与查询条件 查询
         List<MaterialEntity> materialList = materialDao.findList(materialEntity);
         return page.setList(materialList);
+    }
+
+    //序列字符串化
+    public Map<String,Object> findmatrialcode(){
+        Integer materialCodes=dao.findmaterialcode();
+        String s1=materialCodes.toString();
+        int len=s1.length();
+        for(int i=len;i<8;i++){
+             s1="0"+s1;
+        }
+        Map<String,Object> map = new HashMap<>();
+        map.put("materialCode",s1);
+        return map;
+
     }
 
 

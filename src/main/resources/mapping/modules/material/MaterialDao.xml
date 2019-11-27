@@ -12,12 +12,12 @@
 	</select>
 
 	<insert id="insert" >
-     INSERT INTO DATA_MATERIAL(MTYPE_ID_NAME,MATERIAL_NAME,MATERIAL_SPECS,MATERIAL_ABBR,MATERIAL_COMMENT,MATERIAL_PHOTO,MATERIAL_CODING,MATERIAL_TYPE
-     ,LIMIT_CONTRACT,MATERIAL_GROUP,MATERIAL_EXP,TAX_RATE,MATERIAL_UNIT,MATERIAL_PROU,MATERIAL_SUTTLE,MATERIAL_GW,MATERIAL_VOLUME,VOLUME_UNIT,UPDATE_DATE
+     INSERT INTO DATA_MATERIAL(MTYPE_ID,MTYPE_ID_NAME,MATERIAL_NAME,MATERIAL_SPECS,MATERIAL_ABBR,MATERIAL_COMMENT,MATERIAL_PHOTO,MATERIAL_CODING,MATERIAL_TYPE
+     ,LIMIT_CONTRACT,MATERIAL_GROUP,MATERIAL_EXP,TAX_RATE,MATERIAL_UNIT,MATERIAL_PROU,MATERIAL_SUTTLE,MATERIAL_GW,MATERIAL_VOLUME,VOLUME_UNIT
      ,CREATE_USER,MATERIAL_CODE,MATERIAL_STATE)
-     VALUES (#{mtypeIdName},#{materialName},#{materialSpecs},#{materialAbbr},#{materialComment},#{materialPhoto},#{materialCoding},#{materialType},
+     VALUES ('a2cab51bfabc429d9c42819993da6bc3',#{mtypeIdName},#{materialName},#{materialSpecs},#{materialAbbr},#{materialComment},#{materialPhoto},#{materialCoding},#{materialType},
      #{limitContract},#{materialGroup},#{materialExp},#{taxRate},#{materialUnit},#{materialProu},#{materialSuttle},#{materialGw},#{materialVolume},
-     #{volumeUnit},#{updateDate},#{createruser},#{materialCode},1)
+     #{volumeUnit},'张三','0000h0002',1)hpjjjp
  </insert>
 
 	<select id="get" resultType="com.zhg.javakc.modules.material.entity.MaterialEntity" >
@@ -41,5 +41,9 @@
         MATERIAL_STATE=#{materialstate}
         WHERE MATERIAL_ID = #{materialId}
     </update>
+
+	<select id="findmaterialCode" resultType="java.lang.Integer" useCache="false" flushCache="true">
+        select MATERIALTCODE.NEXTVAL from DUAL
+    </select>
 	
 </mapper>

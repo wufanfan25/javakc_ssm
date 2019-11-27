@@ -14,7 +14,7 @@
     <div class="col-md-3">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <button type="button" class="btn btn-success"  style="margin-left: 200px" id="t_add">新增</button>
+            <button type="button" class="btn btn-success"  style="margin-left: 200px" id="t_add">新增</button>
             </div>
             <div class="ibox-content">
                 <!-- 树型结构展示 -->

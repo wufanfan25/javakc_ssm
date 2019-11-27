@@ -51,5 +51,5 @@
 		</div>
 	</body>
 	<script type="text/javascript" src="${path }/static/js/plugins/file-input/fileinput.min.js"></script>
-	<script type="text/javascript" src="./js/dictionary.js"></script>
+<%--	<script type="text/javascript" src="./js/dictionary.js"></script>--%>
 </html>

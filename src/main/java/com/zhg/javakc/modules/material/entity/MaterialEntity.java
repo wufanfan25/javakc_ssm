@@ -2,9 +2,9 @@ package com.zhg.javakc.modules.material.entity;
 
 import com.zhg.javakc.base.entity.BaseEntity;
 
-import javax.persistence.Column;
+
 import javax.persistence.Lob;
-import java.util.Date;
+
 
 public class MaterialEntity extends BaseEntity<MaterialEntity> {
     /*
@@ -15,7 +15,7 @@ public class MaterialEntity extends BaseEntity<MaterialEntity> {
     /**
      * 2物资类型的全路径  如: 原料类/肉类/牛肉类
      */
-    private String materialIdName;
+    private String mtypeIdName;
 
     /*
     3物资名称
@@ -46,7 +46,6 @@ public class MaterialEntity extends BaseEntity<MaterialEntity> {
      * 8物资图片 oracle数据库blob字段存储
      */
     @Lob
-    @Column(name = "data_material")
     private byte[] materialPhoto;
 
     /**
@@ -118,7 +117,7 @@ public class MaterialEntity extends BaseEntity<MaterialEntity> {
     private int materialState;
 
     /**
-     * 创建人
+     * 23创建人
      * @return
      */
     private  String createrUser;
@@ -127,9 +126,9 @@ public class MaterialEntity extends BaseEntity<MaterialEntity> {
         return materialId;
     }
 
-    public String getMaterialIdName() {
-        return materialIdName;
-    }
+//    public String getMaterialIdName() {
+//        return materialIdName;
+//    }
 
     public String getMaterialName() {
         return materialName;
@@ -207,9 +206,9 @@ public class MaterialEntity extends BaseEntity<MaterialEntity> {
         this.materialId = materialId;
     }
 
-    public void setMaterialIdName(String materialIdName) {
-        this.materialIdName = materialIdName;
-    }
+//    public void setMaterialIdName(String materialIdName) {
+//        this.materialIdName = materialIdName;
+//    }
 
     public void setMaterialName(String materialName) {
         this.materialName = materialName;
@@ -313,5 +312,13 @@ public class MaterialEntity extends BaseEntity<MaterialEntity> {
 
     public void setCreaterUser(String createrUser) {
         this.createrUser = createrUser;
+    }
+
+    public String getMtypeIdName() {
+        return mtypeIdName;
+    }
+
+    public void setMtypeIdName(String mtypeIdName) {
+        this.mtypeIdName = mtypeIdName;
     }
 }

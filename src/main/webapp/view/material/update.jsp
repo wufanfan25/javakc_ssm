@@ -13,64 +13,64 @@
 			</div>
 			<div class="ibox float-e-margins">
 				<form action="${path }/material/save.do" method="post" class="form-horizontal" role="form">
-					<input id="materialId" name="materialId" type="hidden" value="${}">
+					<input id="materialId" name="materialId" type="hidden" value="${materialEntity.materialId}" >
                     <fieldset>
                         <legend>物资基本信息编辑</legend>
                        <div class="form-group">
 						   <label class="col-sm-2 control-label">物资分类</label>
 						   <div class="col-sm-4">
-							   <input class="form-control" type="text" name="mtypeIdName" placeholde 551r="物资分类"/>
+							   <input class="form-control" type="text" name="mtypeIdName" value="${materialEntity.mtypeIdName}" placeholde 551r="物资分类"/>
 						   </div>
 
                           <label class="col-sm-2 control-label" >物资名称</label>
                           <div class="col-sm-4">
-                             <input class="form-control" type="text" name="materialName" placeholder="物资名称"/>
+                             <input class="form-control" type="text" name="materialName" value="${materialEntity.materialName}" placeholder="物资名称"/>
                           </div>
                        </div>
                        <div class="form-group">
                           <label class="col-sm-2 control-label" >规格</label>
                           <div class="col-sm-4">
-							  <input class="form-control" type="text" name="materialSpecs" placeholder="物资规格,例:10斤/箱"/>
+							  <input class="form-control" type="text" name="materialSpecs" value="${materialEntity.materialSpecs}" placeholder="物资规格,例:10斤/箱"/>
                           </div>
 
 						   <label class="col-sm-2 control-label" >物资简称</label>
 						   <div class="col-sm-4">
-							   <input class="form-control" type="text" name="materialAbbr" placeholder="物资简称"/>
+							   <input class="form-control" type="text" name="materialAbbr" value="${materialEntity.materialAbbr}" placeholder="物资简称"/>
 						   </div>
                        </div>
 
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >物资简述</label>
 							<div class="col-sm-8">
-								<input class="form-control" type="text" name="materialComment" />
+								<input class="form-control" type="text"  name="materialComment" value="${materialEntity.materialComment}"/>
 							</div>
 						</div>
 
 						<%--图片...--%>
 
-						<div class="form-group">
-							<label class="col-sm-2 control-label" >物资图片</label>
-							<div class="col-md-8">
-								<div class="fileinput fileinput-new" data-provides="fileinput" id="uploadImageDiv">
-<%--									<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">--%>
-<%--										<img src="${companyInfo.image}" alt="" />--%>
-<%--									</div>--%>
-									<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+<%--						<div class="form-group">--%>
+<%--							<label class="col-sm-2 control-label" >物资图片</label>--%>
+<%--							<div class="col-md-8">--%>
+<%--								<div class="fileinput fileinput-new" data-provides="fileinput" id="uploadImageDiv">--%>
+<%--&lt;%&ndash;									<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">&ndash;%&gt;--%>
+<%--&lt;%&ndash;										<img src="${companyInfo.image}" alt="" />&ndash;%&gt;--%>
+<%--&lt;%&ndash;									</div>&ndash;%&gt;--%>
+<%--									<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>--%>
 
-						<div class="form-group">
-                        <span class="btn default btn-file">
-							<label class="col-md-4">
-								<span class="fileinput-new">选择图片</span>
-							</label>
-<%--							<label class="col-md-4"><span class="fileinput-exists">更改</span></label>--%>
-							<input type="file" name="materialPhoto" id="materialPhoto" />
-						</span>
+<%--						<div class="form-group">--%>
+<%--                        <span class="btn default btn-file">--%>
+<%--							<label class="col-md-4">--%>
+<%--								<span class="fileinput-new">选择图片</span>--%>
+<%--							</label>--%>
+<%--&lt;%&ndash;							<label class="col-md-4"><span class="fileinput-exists">更改</span></label>&ndash;%&gt;--%>
+<%--							<input type="file" name="materialPhoto" id="materialPhoto" />--%>
+<%--						</span>--%>
 
-								<a href="#" class="btn-file" data-dismiss="fileinput">移除</a>
-								<span>请选择1M以内图片</span>
-								</div>
+<%--								<a href="#" class="btn-file" data-dismiss="fileinput">移除</a>--%>
+<%--								<span>请选择1M以内图片</span>--%>
+<%--								</div>--%>
 
-						</div>
+<%--						</div>--%>
 
 
 						<div class="form-group">
@@ -105,7 +105,7 @@
 
 							<label class="col-sm-2 control-label" >保质期</label>
 							<div class="col-sm-4">
-								<input class="form-control" type="text" name="materialExp" placeholder="单位:天"/>
+								<input class="form-control" type="text" name="materialExp" value="${materialEntity.materialExp}" placeholder="单位:天"/>
 							</div>
 
 						</div>
@@ -113,7 +113,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >税率</label>
 							<div class="col-sm-2">
-								<input class="form-control" type="text" name="taxRate" placeholder="格式:%"/>
+								<input class="form-control" type="text" name="taxRate" value="${materialEntity.taxRate}" placeholder="格式:%"/>
 							</div>
 
 							<label class="col-sm-2 control-label" >基本单位</label>
@@ -135,12 +135,12 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >净重</label>
 							<div class="col-sm-4">
-								<input class="form-control" type="text" name="materialSuttle" placeholder="输入数值即可"/>
+								<input class="form-control" type="text" name="materialSuttle" value="${materialEntity.materialSuttle}" placeholder="输入数值即可"/>
 							</div>
 
 							<label class="col-sm-2 control-label" >毛重</label>
 							<div class="col-sm-4">
-								<input class="form-control" type="text" name="materialGw" placeholder="输入数值即可"/>
+								<input class="form-control" type="text" name="materialGw" value="${materialEntity.materialGw}" placeholder="输入数值即可"/>
 							</div>
 
 						</div>
@@ -148,7 +148,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label" >体积</label>
 							<div class="col-sm-4">
-								<input class="form-control" type="text" name="materialVolume" placeholder="格式:长*宽*高"/>
+								<input class="form-control" type="text" name="materialVolume" value="${materialEntity.materialVolume}" placeholder="格式:长*宽*高"/>
 							</div>
 
 							<label class="col-sm-2 control-label" >单位</label>
@@ -180,68 +180,68 @@
 	</body>
 
 
-	<script>
-		var url = '';
-		$("#uploadImage").fileupload({
-			url : ROOT + "/security/company/uploadFile",
-			dataType : 'json',
-			autoUpload : false,
-			acceptFileTypes : /(gif|jpe?g|png)$/i,
-			maxFileSize : 1000000, // 1 MB
-			imageMaxWidth : 100,
-			imageMaxHeight : 100,
-			messages : {
-				acceptFileTypes : '文件类型不匹配',
-				maxFileSize : '文件过大',
-				minFileSize : '文件过小'
-			}
-		}).on("fileuploadadd", function(e, data) {
-			// 当文件添加上去时候调用
-			$("#titleImageError").html("");
-			data.submit()
-		}).on("fileuploaddone", function(e, data) {
-			// 上传完成时调用
-			if (data.result.returnState == "ERROR") {
-				alert("上传失败")
-				return;
-			}
-			url = data.result.returnData.url;
-		});
+<%--	<script>--%>
+<%--		var url = '';--%>
+<%--		$("#uploadImage").fileupload({--%>
+<%--			url : ROOT + "/security/company/uploadFile",--%>
+<%--			dataType : 'json',--%>
+<%--			autoUpload : false,--%>
+<%--			acceptFileTypes : /(gif|jpe?g|png)$/i,--%>
+<%--			maxFileSize : 1000000, // 1 MB--%>
+<%--			imageMaxWidth : 100,--%>
+<%--			imageMaxHeight : 100,--%>
+<%--			messages : {--%>
+<%--				acceptFileTypes : '文件类型不匹配',--%>
+<%--				maxFileSize : '文件过大',--%>
+<%--				minFileSize : '文件过小'--%>
+<%--			}--%>
+<%--		}).on("fileuploadadd", function(e, data) {--%>
+<%--			// 当文件添加上去时候调用--%>
+<%--			$("#titleImageError").html("");--%>
+<%--			data.submit()--%>
+<%--		}).on("fileuploaddone", function(e, data) {--%>
+<%--			// 上传完成时调用--%>
+<%--			if (data.result.returnState == "ERROR") {--%>
+<%--				alert("上传失败")--%>
+<%--				return;--%>
+<%--			}--%>
+<%--			url = data.result.returnData.url;--%>
+<%--		});--%>
 
-		function updateMsg() {
-			$.ajax({
-				url : ROOT + "/security/company/updateInfo",
-				data : {
-					id : $("#companyId").val(),
-					image : url,
-					companyName : $("#companyName").val(),
-					companySite : $("#companySite").val(),
-					companyLinker : $("#companyLinker").val(),
-					companyTel : $("#companyTel").val()
-				},
-				type : "post",
-				success : function(data) {
-					if (data.returnState == "OK") {
-						layer.msg('操作成功', {
-							icon : 6,
-							shade : 0.01,
-							offset : [ '57px', '1100px' ]
-						});
-						$table.bootstrapTable('refresh');
-					} else {
-						layer.msg('操作失败', {
-							icon : 5,
-							shade : 0.01,
-							offset : [ '90px', '900px' ]
-						});
-					}
-				}
-			});
-		}
-	</script>
+<%--		function updateMsg() {--%>
+<%--			$.ajax({--%>
+<%--				url : ROOT + "/security/company/updateInfo",--%>
+<%--				data : {--%>
+<%--					id : $("#companyId").val(),--%>
+<%--					image : url,--%>
+<%--					companyName : $("#companyName").val(),--%>
+<%--					companySite : $("#companySite").val(),--%>
+<%--					companyLinker : $("#companyLinker").val(),--%>
+<%--					companyTel : $("#companyTel").val()--%>
+<%--				},--%>
+<%--				type : "post",--%>
+<%--				success : function(data) {--%>
+<%--					if (data.returnState == "OK") {--%>
+<%--						layer.msg('操作成功', {--%>
+<%--							icon : 6,--%>
+<%--							shade : 0.01,--%>
+<%--							offset : [ '57px', '1100px' ]--%>
+<%--						});--%>
+<%--						$table.bootstrapTable('refresh');--%>
+<%--					} else {--%>
+<%--						layer.msg('操作失败', {--%>
+<%--							icon : 5,--%>
+<%--							shade : 0.01,--%>
+<%--							offset : [ '90px', '900px' ]--%>
+<%--						});--%>
+<%--					}--%>
+<%--				}--%>
+<%--			});--%>
+<%--		}--%>
+<%--	</script>--%>
 
 
 	<script type="text/javascript" src="${path }/static/js/plugins/file-input/fileinput.min.js"></script>
 	<script type="text/javascript" src="${path }/static/js/plugins/file-input/bootstrap-fileinput.js"></script>
-	<script type="text/javascript" src="./js/dictionary.js"></script>
+	<script type="text/javascript" src="./js/material.js"></script>
 </html>

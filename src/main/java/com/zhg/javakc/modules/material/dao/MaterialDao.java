@@ -6,4 +6,6 @@ import com.zhg.javakc.modules.material.entity.MaterialEntity;
 
 @MyBatisDao
 public interface MaterialDao extends BaseDao<MaterialEntity> {
+
+    public Integer findmaterialcode();
 }
