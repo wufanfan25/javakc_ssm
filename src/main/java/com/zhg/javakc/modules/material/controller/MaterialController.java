@@ -7,16 +7,12 @@ import com.zhg.javakc.modules.material.service.MaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.sql.Timestamp;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/material")
@@ -26,7 +22,6 @@ public class MaterialController {
     MaterialService materialService;
 
     @RequestMapping("/queryList")
-
     public ModelAndView queryTest(MaterialEntity materialEntity, HttpServletRequest request, HttpServletResponse response){
         ModelAndView modelAndView = new ModelAndView("material/list");
         Page<MaterialEntity> page = materialService.queryTest(materialEntity, new Page<MaterialEntity>(request, response));
@@ -37,6 +32,7 @@ public class MaterialController {
     @RequestMapping("/save")
     public String save(MaterialEntity materialEntity){
         materialEntity.setMaterialId(CommonUtil.uuid());
+        materialEntity.setMaterialCode(materialService.findMaterialCode());
         materialEntity.setUpdateDate(new Timestamp(System.currentTimeMillis()));
 //        try {
 //            String path = ResourceUtils.getURL("classpath:").getPath();
@@ -63,10 +59,5 @@ public class MaterialController {
         return "redirect:queryList.do";
     }
 
-    @RequestMapping("/findcode")
-    @ResponseBody
-    public Map<String,Object> findmatrialcode(){
-        return  materialService.findmatrialcode();
-    }
 
 }

@@ -15,7 +15,7 @@
 				<div class="col-sm-4"><input type="button" value="返回上一页" class="btn btn-success" onclick="javascript:history.back();"/></div>
 			</div>
 			<div class="ibox float-e-margins">
-				<form action="${path }/material/save.do" method="post" class="form-horizontal" role="form">
+				<form action="${path}/material/save.do" method="post" class="form-horizontal" role="form">
                     <fieldset>
                         <legend>物资基本信息</legend>
                        <div class="form-group">
@@ -161,9 +161,8 @@
 									<option value="分米">分米</option>
 								</select>
 							</div>
-
+						</div></div>
 						</div>
-
                     </fieldset>
                     <fieldset>
                         <div class="form-group">

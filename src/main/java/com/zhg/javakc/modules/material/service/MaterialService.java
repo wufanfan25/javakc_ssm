@@ -7,9 +7,7 @@ import com.zhg.javakc.modules.material.entity.MaterialEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class MaterialService extends BaseService<MaterialDao, MaterialEntity> {
@@ -26,17 +24,14 @@ public class MaterialService extends BaseService<MaterialDao, MaterialEntity> {
     }
 
     //序列字符串化
-    public Map<String,Object> findmatrialcode(){
-        Integer materialCodes=dao.findmaterialcode();
+    public String findMaterialCode(){
+        Integer materialCodes= dao.findMaterialCode();
         String s1=materialCodes.toString();
         int len=s1.length();
         for(int i=len;i<8;i++){
              s1="0"+s1;
         }
-        Map<String,Object> map = new HashMap<>();
-        map.put("materialCode",s1);
-        return map;
-
+        return s1;
     }
 
 
